@@ -10,6 +10,9 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new HtmlPlugin({
+      template:'public/index.html',
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -19,9 +22,6 @@ module.exports = {
           },
         },
       ],
-    }),
-    new HtmlPlugin({
-      template:'public/index.html',
     }),
   ],
   module: {
