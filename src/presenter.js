@@ -5,19 +5,21 @@ import ContainerListItemView from './view/container-list-item-view.js';
 import {render} from './render.js';
 
 export default class Presenter{
-  constructor ({container}){
+  constructor ({container, pointsModel}){
     this.container = container;
+    this.pointsModel = pointsModel;
   }
 
   list = new ContainerListView();
-  itemList = new ContainerListItemView();
+  listItem = new ContainerListItemView();
   init(){
+    this.presenter = [...this.pointsModel.getPoints()];
     render(this.list, this.container);
-    render(new FormEditView(), this.itemList.getElement());
-    for(let i = 0; i < 3; i++){
-      render(new PointView(), this.itemList.getElement());
-      render(this.itemList, this.list.getElement());
-      this.itemList = new ContainerListItemView();
+    render(new FormEditView({destination: this.pointsModel.getDestination()}), this.listItem.getElement());
+    for(let i = 0; i < this.presenter.length; i++){
+      render(new PointView({point: this.presenter[i], destination: this.pointsModel.getDestination()}), this.listItem.getElement());
+      render(this.listItem, this.list.getElement());
+      this.listItem = new ContainerListItemView();
     }
   }
 }
