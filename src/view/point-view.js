@@ -1,14 +1,16 @@
 import { createElement } from '../render';
-
-function createPointItemTemplate(point, destination) {
-  const {type, isFavorite, basePrice} = point;
+import { addOffers } from '../util';
+function createPointItemTemplate(point, destination, offer) {
+  const {type, isFavorite, basePrice, offers} = point;
   const currentDestination = destination.find((dest) => dest.id === point.destination);
-  // const {id, description, pictures} = destination;
-  // const id = point.id;
-  // const dateFrom = point.dateFrom;
-  // const dateTo = point.dateTo;
-  // const destination = point.destination;
-  // const offers = point.offers;
+  const currentOffers = offers.map((id) => {
+    for(const off of offer.offers){
+      if (id === off.id) {
+        return off;
+      }
+    }
+  });
+
 
   return `
   <div class="event">
@@ -30,11 +32,7 @@ function createPointItemTemplate(point, destination) {
     </p>
     <h4 class="visually-hidden">Offers:</h4>
     <ul class="event__selected-offers">
-      <li class="event__offer">
-        <span class="event__offer-title">Order Uber</span>
-        &plus;&euro;&nbsp;
-        <span class="event__offer-price">${basePrice}</span>
-      </li>
+    ${addOffers(currentOffers)}
     </ul>
     <button class="event__favorite-btn ${isFavorite ? 'event__favorite-btn--active' : ''}" type="button">
       <span class="visually-hidden">Add to favorite</span>
@@ -49,13 +47,14 @@ function createPointItemTemplate(point, destination) {
 }
 
 export default class PointView {
-  constructor({point, destination}){
+  constructor({point, destination, offer}){
     this.point = point;
     this.destination = destination;
+    this.offer = offer;
   }
 
   getTemplate(){
-    return createPointItemTemplate(this.point, this.destination);
+    return createPointItemTemplate(this.point, this.destination, this.offer);
   }
 
   getElement(){

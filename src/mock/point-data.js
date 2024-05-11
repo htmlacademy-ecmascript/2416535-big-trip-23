@@ -10,8 +10,9 @@ const mockPoints = [
     isFavorite: false,
     offers: [
       'b4c3e4e6-9053-42ce-b747-e281314baa31',
+      'b4c3e4e6-9053-42ce-b747-e281314baa32',
     ],
-    type: getRandomElement(typePoint),
+    type: typePoint[0],
   },
   {
     id: 'f4b62099-293f-4c3d-a702-94eec4a2808c',
@@ -21,9 +22,9 @@ const mockPoints = [
     destination: 'bfa5cb75-a1fe-4b77-a83c-0e528e910e05',
     isFavorite: true,
     offers: [
-      'b4c3e4e6-9053-42ce-b747-e281314baa31',
+      'b4c3e4e6-9053-42ce-b747-e281314baa32',
     ],
-    type: getRandomElement(typePoint),
+    type: typePoint[1],
   },
   {
     id: 'f4b62099-293f-4c3d-a702-94eec4a2808c',
@@ -33,9 +34,9 @@ const mockPoints = [
     destination: 'bfa5cb75-a1fe-4b77-a83c-0e528e910e06',
     isFavorite: false,
     offers: [
-      'b4c3e4e6-9053-42ce-b747-e281314baa31',
+      'b4c3e4e6-9053-42ce-b747-e281314baa33',
     ],
-    type: getRandomElement(typePoint),
+    type: typePoint[2],
   },
 ];
 

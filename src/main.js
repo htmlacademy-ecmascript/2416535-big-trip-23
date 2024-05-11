@@ -2,15 +2,15 @@ import FilterView from './view/filter-view';
 import SortView from './view/sort-view';
 import Presenter from './presenter.js';
 import {RenderPosition, render} from './render.js';
-import PointsModel from './model/points-model.js';
+import PointModel from './model/point-model.js';
 
 const tripControlsFilters = document.querySelector('.trip-controls__filters');
 const tripEvents = document.querySelector('.trip-events');
 
-const pointsModel = new PointsModel();
+const pointModel = new PointModel();
 const presenter = new Presenter({
   container:tripEvents,
-  pointsModel,
+  pointModel,
 });
 
 render(new FilterView(), tripControlsFilters);

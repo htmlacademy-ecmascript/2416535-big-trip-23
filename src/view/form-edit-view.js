@@ -1,8 +1,13 @@
 import { createElement } from '../render';
+import { getRandomElement } from '../util';
 
 function createFormEditTemplate(destination){
-  // const {id, description, name, pictures} = destination;
+  const { description, name, pictures} = destination[getRandomElement([0, 1, 2])];
+  const names = [];
 
+  for (const dest of destination) {
+    names.push(dest.name);
+  }
   return `
   <form class="event event--edit" action="#" method="post">
                 <header class="event__header">
@@ -69,11 +74,11 @@ function createFormEditTemplate(destination){
                     <label class="event__label  event__type-output" for="event-destination-1">
                       Flight
                     </label>
-                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="Geneva" list="destination-list-1">
+                    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${name}" list="destination-list-1">
                     <datalist id="destination-list-1">
-                      <option value="Amsterdam"></option>
-                      <option value="Geneva"></option>
-                      <option value="Chamonix"></option>
+                      <option value="${names[0]}"></option>
+                      <option value="${names[1]}"></option>
+                      <option value="${names[2]}"></option>
                     </datalist>
                   </div>
 
@@ -150,11 +155,11 @@ function createFormEditTemplate(destination){
 
                   <section class="event__section  event__section--destination">
                     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                    <p class="event__destination-description">Geneva is a city in Switzerland that lies at the southern tip of expansive Lac Léman (Lake Geneva). Surrounded by the Alps and Jura mountains, the city has views of dramatic Mont Blanc.</p>
+                    <p class="event__destination-description">${description} is a city in Temeria that lies at the southern tip of expansive Lac Léman (Lake ${names[0]}). Surrounded by the Alps and Jura mountains, the city has views of dramatic Mont Blanc.</p>
 
                     <div class="event__photos-container">
                       <div class="event__photos-tape">
-                        <img class="event__photo" src="img/photos/1.jpg" alt="Event photo">
+                        <img class="event__photo" src="${pictures[0].src}" alt="Event photo">
                       </div>
                     </div>
                   </section>
@@ -163,12 +168,13 @@ function createFormEditTemplate(destination){
 }
 
 export default class FormEditView{
-  constructor(destination){
+  constructor(destination, offer){
     this.destination = destination;
+    this.offer = offer;
   }
 
   getTemplate(){
-    return createFormEditTemplate(this.destination);
+    return createFormEditTemplate(this.destination, this.offer);
   }
 
   getElement(){
